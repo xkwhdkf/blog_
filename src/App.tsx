@@ -1,13 +1,13 @@
 import React from 'react';
-import Head from './components/Head';
-import Profile from './components/Profile';
+
+import Calender from './components/Calender';
+
 
 
 function App() {
   return (
     <>
-      <Head />
-      <Profile />
+      <Calender />
     </>
   );
 }
