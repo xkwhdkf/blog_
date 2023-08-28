@@ -8,15 +8,15 @@ import React, { useState } from 'react'
 
 
 
-const RenderHeader = ({ currentMonth }:{currentMonth: any}, {prevMonth}: {prevMonth: any}, {nextMonth}: {nextMonth: any}) => {
+const RenderHeader = ({ currentMonth , prevMonth, nextMonth}: {currentMonth:any; prevMonth:any;nextMonth: any}) => {
   return (
     <div className='headerRow'>
       <div className='col-start'>
         <span className='text'>
           <span className='textMonth'>
-            {format(currentMonth, 'M')}월
+            {format(currentMonth)}월
           </span>
-          {format(currentMonth, 'yyyy')}
+          {format(currentMonth)}
         </span>
       </div>
       <div className='col-end'>
@@ -41,7 +41,7 @@ const RenderDay= () => {
   return <div className='day row'>{day}</div>
 }
 
-const RenderCells = ( {currentMonth}: {currentMonth: any}, {selectedDate}: {selectedDate: any}, {onDateClick}: {onDateClick: any} ) => {
+const RenderCells = ({ currentMonth, selectedDate, onDateClick }: { currentMonth: any; selectedDate: any; onDateClick: any }) => {
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
@@ -67,7 +67,7 @@ const RenderCells = ( {currentMonth}: {currentMonth: any}, {selectedDate}: {sele
                           ? 'not-valid'
                           : 'valid'
                   }`}
-                  key={day}
+                  key={day.getTime()} // Use a unique identifier for the key
                   onClick={() => onDateClick(parse(cloneDay))}
               >
                   <span
@@ -79,23 +79,25 @@ const RenderCells = ( {currentMonth}: {currentMonth: any}, {selectedDate}: {sele
                   >
                       {formattedDate}
                   </span>
-              </div>,
+              </div>
           );
           day = addDays(day, 1);
       }
       rows.push(
-          <div className="row" key={day}>
+          <div className="row" key={day.getTime()}> {/* Use a unique identifier for the key */}
               {days}
-          </div>,
+          </div>
       );
       days = [];
   }
   return <div className="body">{rows}</div>;
 };
 
+
+
 export const Calender = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectDate, setSelectDate] = useState(new Date());
+  const [selectedDate, setSelectDate] = useState(new Date());
 
   const prevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
@@ -116,7 +118,7 @@ export const Calender = () => {
       <RenderDay />
       <RenderCells
         currentMonth={currentMonth}
-        selectedDate={selectDate}
+        selectedDate={selectedDate}
         onDateClick={onDateClick}
       />
     </div>
