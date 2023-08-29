@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { addDays, addMonths, endOfMonth, endOfWeek, isSameDay, isSameMonth, startOfMonth, startOfWeek, subMonths } from 'date-fns';
 import { format, parse } from 'path'
 import React, { useState } from 'react'
+import { start } from 'repl';
 
 
 
@@ -51,10 +52,11 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }: { currentMonth
   let days = [];
   let day = startDate;
   let formattedDate = '';
+  
 
   while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
-          formattedDate = format(day, 'd');
+          {formattedDate}; {formattedDate: String}  {format}; {format: String} {day}{day: Date}; 'd';
           const cloneDay = day;
           days.push(
               <div
@@ -63,12 +65,12 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }: { currentMonth
                           ? 'disabled'
                           : isSameDay(day, selectedDate)
                           ? 'selected'
-                          : format(currentMonth, 'M') !== format(day, 'M')
+                          : {format}} (currentMonth, 'M') !== format(day, 'M')
                           ? 'not-valid'
                           : 'valid'
                   }`}
                   key={day.getTime()} // Use a unique identifier for the key
-                  onClick={() => onDateClick(parse(cloneDay))}
+                  onClick={() => onDateClick(parse,{cloneDay}, {cloneDay: Date} )}
               >
                   <span
                       className={
