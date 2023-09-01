@@ -48,11 +48,31 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }: { currentMonth
   const startDate = startOfWeek(monthStart);
   const endDate = endOfWeek(monthEnd);
 
-  const rows = [];
-  let days = [];
+  const rows: any = [];
+  let days: any = [];
   let day = startDate;
   let formattedDate = '';
   
+  import {
+    startOfMonth,
+    endOfMonth,
+    startOfWeek,
+    endOfWeek,
+    isSameMonth,
+    isSameDay,
+    addDays,
+    format,
+  } from 'date-fns';
+  
+  const RenderCells = ({
+    currentMonth,
+    selectedDate,
+    onDateClick,
+  }: {
+    currentMonth: Date;
+    selectedDate: Date;
+    onDateClick: (date: Date) => void;
+  }) => {
 
   while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
@@ -70,7 +90,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }: { currentMonth
                           : 'valid'
                   }`}
                   key={day.getTime()} // Use a unique identifier for the key
-                  onClick={() => onDateClick(parse,{cloneDay}, {cloneDay: Date} )}
+                  onClick={() => onDateClick(parse,{cloneDay} )}
               >
                   <span
                       className={
